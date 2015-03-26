@@ -4,7 +4,8 @@
  * rewrite by Ruben de Vries <ruben@blocktrail.com> to work with superagent
  */
 var sprintf = require('util').format;
-var crypto = require('crypto');
+var createHmac = require('create-hmac');
+var createSign = require('browserify-sign').createSign;
 
 function getHeader(request, header) {
     return request.get ? request.get(header) : request.getHeader(header);
@@ -140,11 +141,11 @@ function sign(request, options) {
     var alg = options.algorithm.match(/(hmac|rsa)-(\w+)/);
     var signature;
     if (alg[1] === 'hmac') {
-        var hmac = crypto.createHmac(alg[2].toUpperCase(), options.key);
+        var hmac = createHmac(alg[2].toUpperCase(), options.key);
         hmac.update(stringToSign);
         signature = hmac.digest('base64');
     } else {
-        var signer = crypto.createSign(options.algorithm.toUpperCase());
+        var signer = createSign(options.algorithm.toUpperCase());
         signer.update(stringToSign);
         signature = signer.sign(options.key, 'base64');
     }
