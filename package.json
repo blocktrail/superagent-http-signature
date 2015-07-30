@@ -5,7 +5,7 @@
         "name": "Ruben de Vries"
     },
     "description": "A plugin for superagent that signs requests following Joyent's HTTP Signature Scheme",
-    "main": "lib/index.js",
+    "main": "index.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/blocktrail/superagent-http-signature.git"
